@@ -1,13 +1,18 @@
 #!/bin/bash
-if [ -f pw.vpnme ]
+basepath="/home/philipp/scripts/"
+jarpath="$basepath""vpnme.jar"
+pwpath="$basepath""pw.vpnme"
+configpath="$basepath""vpnmeconfigtmp"
+configzippath="$basepath""config.zip"
+if [ -f $pwpath ]
 then
-	rm pw.vpnme
+	rm $pwpath
 fi
-wget -O config.zip https://www.vpnme.me/dl/vpnme_fr_tcp443.zip
-unzip config.zip -d vpnmeconfigtmp
-rm config.zip
-status="fr-open\n"$(java -jar vpnme.jar)
-printf $status > pw.vpnme
-sudo openvpn --config vpnmeconfigtmp/vpnme_fr_tcp443.ovpn --auth-user-pass pw.vpnme
-rm pw.vpnme
-rm -R vpnmeconfigtmp
+wget -O $configzippath https://www.vpnme.me/dl/vpnme_fr_tcp443.zip
+unzip $configzippath -d $configpath
+rm $configzippath
+status="fr-open\n"$(java -jar $jarpath)
+printf $status > $pwpath
+sudo openvpn --config $configpath/vpnme_fr_tcp443.ovpn --auth-user-pass $pwpath
+rm $pwpath
+rm -R $configpath

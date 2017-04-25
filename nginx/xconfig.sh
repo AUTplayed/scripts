@@ -23,7 +23,6 @@ do
 	do
 		extra="$extra"" ""${args[$i]}";
 	done;
-	printf "$extra"
 	out=$(printf "server {\n\tlisten 80;\n\tserver_name %s;\n\tlocation / {\n\t\tproxy_pass http://localhost:%s;\n\t}\n\t%s\n}" "${args[0]}" "${args[1]}" "$extra")
 	final=$(printf "%s\n\n%s" "$final" "$out")
 done

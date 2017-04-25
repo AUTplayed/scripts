@@ -17,7 +17,7 @@ final=""
 for configline in "${config[@]}"
 do
 	IFS=' ' read -r -a args <<< "$configline"
-	out=$(printf "server {\n\tlisten 80;\n\tserver_name %s;\n\tlocation / {\n\t\tproxy_pass http://localhost:%s;\n\t}\n}" "${args[0]}" "${args[1]}")
+	out=$(printf "server {\n\tlisten 80;\n\tserver_name %s;\n\tlocation / {\n\t\tproxy_pass http://localhost:%s;\n\t}\n\t%s\n}" "${args[0]}" "${args[1]}" "${args[2]}")
 	final=$(printf "%s\n\n%s" "$final" "$out")
 done
 printf "$final" > "/etc/nginx/sites-available/""$2"

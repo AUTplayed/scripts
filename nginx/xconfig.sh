@@ -16,6 +16,7 @@ readarray config < $configpath
 final=""
 for configline in "${config[@]}"
 do
+
 	IFS=' ' read -r -a args <<< "$configline"
 	extra=""
 	for i in $(seq 2 5);

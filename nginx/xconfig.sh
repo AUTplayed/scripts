@@ -1,11 +1,11 @@
 #!/bin/bash
 configpath=$1
-if [ -z $2 ] 
+if [ -z $2 ]
 then
 	printf "Usage: xconfig.sh <config path> <output config name> \n"
 	printf "Config path layout: \n"
-	printf "<server_name> <port>\n"
-	printf "<server_name> <port>\n"
+	printf "<server_name> <port> <additionalConfig>\n"
+	printf "subdomain.* http://localhost:8080 client_max_body_size 100M;\n"
 	exit 1
 fi
 if [ "$EUID" -ne 0 ]
@@ -16,7 +16,6 @@ readarray config < $configpath
 final=""
 for configline in "${config[@]}"
 do
-
 	IFS=' ' read -r -a args <<< "$configline"
 	extra=""
 	for i in $(seq 2 5);
